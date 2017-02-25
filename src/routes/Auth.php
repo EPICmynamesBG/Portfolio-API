@@ -9,47 +9,47 @@ $app->group('/auth', function() use ($app){
   
   
   /**
-      * @SWG\Post(
-      *     path="/auth/login",
-      *     summary="Login",
-      *     description="Login",
-      *     tags={"Auth"},
-      *     @SWG\Parameter(
-      *       name="LoginBody",
-      *       in="body",
-      *       required=true,
-      *       @SWG\Schema(
-      *         type="object",
-      *         required={"email","password"},
-      *         @SWG\Property(property="email", type="string", example="admin@example.com"),
-      *         @SWG\Property(property="password", type="string")
-      *       )
-      *     ),
-      *     @SWG\Response(
-      *         response=200,
-      *         description="Success",
-      *         @SWG\Schema(
-      *             type="object",
-      *             required={"token"},
-      *             @SWG\Property(property="token", type="boolean", description="A JWT session token")
-      *         )
-      *     ),
-      *     @SWG\Response(
-      *         response=403,
-      *         description="Unauthorized",
-      *         @SWG\Schema(
-      *             ref="#/definitions/Unauthorized"
-      *         )
-      *     ),
-      *     @SWG\Response(
-      *         response="default",
-      *         description="Error",
-      *         @SWG\Schema(
-      *             ref="#/definitions/Error"
-      *         )
-      *     )
-      * )
-      */
+    * @SWG\Post(
+    *     path="/auth/login",
+    *     summary="Login",
+    *     description="Login",
+    *     tags={"Auth"},
+    *     @SWG\Parameter(
+    *       name="LoginBody",
+    *       in="body",
+    *       required=true,
+    *       @SWG\Schema(
+    *         type="object",
+    *         required={"email","password"},
+    *         @SWG\Property(property="email", type="string", example="admin@example.com"),
+    *         @SWG\Property(property="password", type="string")
+    *       )
+    *     ),
+    *     @SWG\Response(
+    *         response=200,
+    *         description="Success",
+    *         @SWG\Schema(
+    *             type="object",
+    *             required={"token"},
+    *             @SWG\Property(property="token", type="boolean", description="A JWT session token")
+    *         )
+    *     ),
+    *     @SWG\Response(
+    *         response=403,
+    *         description="Unauthorized",
+    *         @SWG\Schema(
+    *             ref="#/definitions/Unauthorized"
+    *         )
+    *     ),
+    *     @SWG\Response(
+    *         response="default",
+    *         description="Error",
+    *         @SWG\Schema(
+    *             ref="#/definitions/Error"
+    *         )
+    *     )
+    * )
+    */
   $app->post('/login', function($request, $response, $args){
     
     $body = $request->getParsedBody();
@@ -62,37 +62,37 @@ $app->group('/auth', function() use ($app){
   
   
   /**
-      * @SWG\Delete(
-      *     path="/auth/logout",
-      *     summary="Logout",
-      *     description="`User only.` Logout.",
-      *     tags={"Auth"},
-      *     @SWG\Parameter(ref="#/parameters/AuthHeader"),
-      *     @SWG\Response(
-      *         response=200,
-      *         description="Success",
-      *         @SWG\Schema(
-      *             type="object",
-      *             required={"logout"},
-      *             @SWG\Property(property="logout", type="string", default="success")
-      *         )
-      *     ),
-      *     @SWG\Response(
-      *         response=403,
-      *         description="Unauthorized",
-      *         @SWG\Schema(
-      *             ref="#/definitions/Unauthorized"
-      *         )
-      *     ),
-      *     @SWG\Response(
-      *         response="default",
-      *         description="Error",
-      *         @SWG\Schema(
-      *             ref="#/definitions/Error"
-      *         )
-      *     )
-      * )
-      */
+    * @SWG\Delete(
+    *     path="/auth/logout",
+    *     summary="Logout",
+    *     description="`User only.` Logout.",
+    *     tags={"Auth"},
+    *     @SWG\Parameter(ref="#/parameters/AuthHeader"),
+    *     @SWG\Response(
+    *         response=200,
+    *         description="Success",
+    *         @SWG\Schema(
+    *             type="object",
+    *             required={"logout"},
+    *             @SWG\Property(property="logout", type="string", default="success")
+    *         )
+    *     ),
+    *     @SWG\Response(
+    *         response=403,
+    *         description="Unauthorized",
+    *         @SWG\Schema(
+    *             ref="#/definitions/Unauthorized"
+    *         )
+    *     ),
+    *     @SWG\Response(
+    *         response="default",
+    *         description="Error",
+    *         @SWG\Schema(
+    *             ref="#/definitions/Error"
+    *         )
+    *     )
+    * )
+    */
   $app->delete('/logout', function($request, $response, $args){
     
     $admin = $request->getAttribute('admin');

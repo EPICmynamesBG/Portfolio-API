@@ -25,5 +25,17 @@ $app->group('/api/v1', function() use ($app){
   
   
   require "./src/routes/Auth.php";
+  require "./src/routes/Information.php";
   
 });
+
+/** 
+ * @SWG\Parameter(
+ * 	    name="id",
+ *      in="path",
+ *      description="an object ID number",
+ * 		  required=true,
+ *		  type="integer",
+ *      default="1"
+ * 	 )
+*/
