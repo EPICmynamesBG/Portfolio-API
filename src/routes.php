@@ -1,10 +1,29 @@
 <?php
 // Routes
 
-$app->get('/[{name}]', function ($request, $response, $args) {
-    // Sample log message
-    $this->logger->info("Slim-Skeleton '/' route");
+//Simple redirects
+$app->get('/docs', function($request, $response, $args) {
+  return $response->withStatus(302)->withHeader("Location", "/docs/index.html");
+});
 
-    // Render index view
-    return $this->renderer->render($response, 'index.phtml', $args);
+$app->get('/manage', function($request, $response, $args) {
+  return $response->withStatus(302)->withHeader("Location", "/manage/index.html");
+});
+
+$app->group('/api/v1', function() use ($app){
+  
+  
+  $app->get('/swagger', function($request, $response, $args) {
+    $swagger = \Swagger\scan(['./index.php', './src']);
+    $response->getBody()->write(json_encode($swagger));
+    return $response;
+  });
+  
+  $app->get('/docs', function($request, $response, $args) {
+    return $response->withStatus(302)->withHeader("Location", "/docs/index.html");
+  });
+  
+  
+  require "./src/routes/Auth.php";
+  
 });
