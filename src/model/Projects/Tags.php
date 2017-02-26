@@ -142,47 +142,51 @@ class Tag {
     
   }
   
-//  public static function createAllForWorkExperience($newTags, $workExpId) {
-//    
-//    $createdTags = [];
-//    foreach($newTags as $toCreate) {
-//      $createdTags[] = self::findOrCreate($toCreate);
-//    }
-//    
-//    $createdWorkTags = [];
-//    foreach($createdTags as $tag) {
-//      $createdWorkTags[] = WorkTag::findOrCreate($tag->id, $workExpId);
-//    }
-//    
-//    if (sizeof($createdWorkTags) != sizeof($createdTags)){
-//      throw new Exception('Created Tags count does not match created Work Tags count', 500);
-//    }
-//    
-//    return $createdTags;
-//  }
-//  
-//  public static function getAllForWorkExperience($workExpId) {
-//    $workTags = WorkTag::getAllForWorkExperience($workExpId);
-//    
-//    $tagIdArr = [];
-//    foreach($workTags as $workTag) {
-//      $tagIdArr[] = $workTag->getTagId();
-//    }
-//    
-//    $db = DB::getInstance();
-//    $results = $db->select('tags', '*', ['id' => $tagIdArr]);
-//    DB::handleError($db);
-//    
-//    $tags = [];
-//    foreach($results as $row) {
-//      $tags[] = new Tag($row);
-//    }
-//    return $tags;
-//  }
-//  
-//  //doesn't actually delete the contact table instance, but the workContact relationship
-//  public static function deleteAllForWorkExperience($workExpId) {
-//    return WorkTag::deleteAllForWorkExperience($workExpId);
-//  }
+  public static function createAllForProject($newTags, $projectId) {
+    
+    $createdTags = [];
+    foreach($newTags as $toCreate) {
+      $createdTags[] = self::findOrCreate($toCreate);
+    }
+    
+    $createdWorkTags = [];
+    foreach($createdTags as $tag) {
+      $createdWorkTags[] = ProjectTag::findOrCreate($tag->id, $projectId);
+    }
+    
+    if (sizeof($createdWorkTags) != sizeof($createdTags)){
+      throw new Exception('Created Tags count does not match created Project Tags count', 500);
+    }
+    
+    return $createdTags;
+  }
+  
+  public static function getAllForProject($projectId) {
+    $projectTags = ProjectTag::getAllForWorkExperience($projectId);
+    
+    $tagIdArr = [];
+    foreach($projectTags as $projTag) {
+      $tagIdArr[] = $projTag->getTagId();
+    }
+    
+    if (sizeof($projIdArr) == 0){
+      return [];
+    }
+    
+    $db = DB::getInstance();
+    $results = $db->select('tags', '*', ['id' => $projIdArr]);
+    DB::handleError($db);
+    
+    $tags = [];
+    foreach($results as $row) {
+      $tags[] = new Tag($row);
+    }
+    return $tags;
+  }
+  
+  //doesn't actually delete the contact table instance, but the workContact relationship
+  public static function deleteAllForProject($projectId) {
+    return ProjectTag::deleteAllForWorkExperience($projectId);
+  }
   
 }
