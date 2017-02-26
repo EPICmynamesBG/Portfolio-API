@@ -94,7 +94,7 @@ $app->group('/interests', function() use ($app){
     *         @SWG\Schema(
     *             type="object",
     *             required={"created", "data"},
-    *             @SWG\Property(property="created", type="boolean", default="true"),
+    *             @SWG\Property(property="created", type="boolean", default=true),
     *             @SWG\Property(property="data", ref="#/definitions/Interest")
     *         )
     *     ),
@@ -116,7 +116,8 @@ $app->group('/interests', function() use ($app){
     */
   $app->post('', function($request, $response, $args){
     $body = $request->getParsedBody();
-    $output = Interest::create($body['name']);
+    $interest = Interest::create($body['name']);
+    $output = ['created' => true, 'data' => $interest];
     return $response->getBody()->write(json_encode($output));
   })->add($validateAdmin);
   
@@ -145,7 +146,7 @@ $app->group('/interests', function() use ($app){
     *         @SWG\Schema(
     *             type="object",
     *             required={"updated", "data"},
-    *             @SWG\Property(property="updated", type="boolean", default="true"),
+    *             @SWG\Property(property="updated", type="boolean", default=true),
     *             @SWG\Property(property="data", ref="#/definitions/Interest")
     *         )
     *     ),
@@ -168,7 +169,8 @@ $app->group('/interests', function() use ($app){
   $app->put('/{id}', function($request, $response, $args){
     $interest = Interest::getById($args['id']);
     $body = $request->getParsedBody();
-    $output = $interest->update($body['name']);
+    $interest = $interest->update($body['name']);
+    $output = ['updated' => true, 'data' => $interest];
     return $response->getBody()->write(json_encode($output));
   })->add($validateAdmin);
   
@@ -187,7 +189,7 @@ $app->group('/interests', function() use ($app){
     *         @SWG\Schema(
     *             type="object",
     *             required={"delted", "data"},
-    *             @SWG\Property(property="deleted", type="boolean", default="true"),
+    *             @SWG\Property(property="deleted", type="boolean", default=true),
     *             @SWG\Property(property="data", ref="#/definitions/Interest")
     *         )
     *     ),
@@ -209,7 +211,8 @@ $app->group('/interests', function() use ($app){
     */
   $app->delete('/{id}', function($request, $response, $args){
     $interest = Interest::getById($args['id']);
-    $output = $interest->delete();
+    $interest = $interest->delete();
+    $output = ['deleted' => true, 'data' => $interest];
     return $response->getBody()->write(json_encode($output));
   })->add($validateAdmin);
   

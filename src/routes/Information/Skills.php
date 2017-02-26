@@ -94,7 +94,7 @@ $app->group('/skills', function() use ($app){
     *         @SWG\Schema(
     *             type="object",
     *             required={"created", "data"},
-    *             @SWG\Property(property="created", type="boolean", default="true"),
+    *             @SWG\Property(property="created", type="boolean", default=true),
     *             @SWG\Property(property="data", ref="#/definitions/Skill")
     *         )
     *     ),
@@ -116,7 +116,8 @@ $app->group('/skills', function() use ($app){
     */
   $app->post('', function($request, $response, $args){
     $body = $request->getParsedBody();
-    $output = Skill::create($body['name']);
+    $skill = Skill::create($body['name']);
+    $output = ['created' => true, 'data' => $skill];
     return $response->getBody()->write(json_encode($output));
   })->add($validateAdmin);
   
@@ -145,7 +146,7 @@ $app->group('/skills', function() use ($app){
     *         @SWG\Schema(
     *             type="object",
     *             required={"updated", "data"},
-    *             @SWG\Property(property="updated", type="boolean", default="true"),
+    *             @SWG\Property(property="updated", type="boolean", default=true),
     *             @SWG\Property(property="data", ref="#/definitions/Skill")
     *         )
     *     ),
@@ -168,7 +169,8 @@ $app->group('/skills', function() use ($app){
   $app->put('/{id}', function($request, $response, $args){
     $skill = Skill::getById($args['id']);
     $body = $request->getParsedBody();
-    $output = $skill->update($body['name']);
+    $skill = $skill->update($body['name']);
+    $output = ['updated' => true, 'data' => $skill];
     return $response->getBody()->write(json_encode($output));
   })->add($validateAdmin);
   
@@ -187,7 +189,7 @@ $app->group('/skills', function() use ($app){
     *         @SWG\Schema(
     *             type="object",
     *             required={"delted", "data"},
-    *             @SWG\Property(property="deleted", type="boolean", default="true"),
+    *             @SWG\Property(property="deleted", type="boolean", default=true),
     *             @SWG\Property(property="data", ref="#/definitions/Skill")
     *         )
     *     ),
@@ -209,7 +211,8 @@ $app->group('/skills', function() use ($app){
     */
   $app->delete('/{id}', function($request, $response, $args){
     $skill = Skill::getById($args['id']);
-    $output = $skill->delete();
+    $skill = $skill->delete();
+    $output = ['deleted' => true, 'data' => $skill];
     return $response->getBody()->write(json_encode($output));
   })->add($validateAdmin);
   

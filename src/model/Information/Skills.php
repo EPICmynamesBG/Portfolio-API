@@ -3,7 +3,6 @@
 /**
  * @SWG\Definition(
  *  required={
- *      "id",
  *      "name"
  *   },
  *   description="An Skill object"
@@ -47,10 +46,7 @@ class Skill {
     
     $lastInsertedId = $db->lastInsertId();
     
-    return [
-      'created' => true,
-      'data' => self::getById($lastInsertedId)
-    ];
+    return self::getById($lastInsertedId);
   }
   
   
@@ -61,7 +57,7 @@ class Skill {
     DB::handleError($db);
     
     $skills = [];
-    foreach ($row as $results) {
+    foreach ($results as $row) {
       $skills[] = new Skill($row);
     }
     
@@ -76,7 +72,7 @@ class Skill {
     
     $db = DB::getInstance();
     
-    $results = $db->select('skills', '*'. ['id' => $id]);
+    $results = $db->select('skills', '*', ['id' => $id]);
     DB::handleError($db);
     
     if (sizeof($results) != 1){
@@ -102,10 +98,7 @@ class Skill {
     }
     
     $this->name = $name;
-    return [
-      'updated' => true,
-      'data' => $this
-    ];
+    return $this;
   }
   
   public function delete() {
@@ -118,10 +111,7 @@ class Skill {
       throw new Exception("An error occurred deleting interest ". $this->id, 500);
     }
     
-    return [
-      'deleted' => true,
-      'data' => $this
-    ];
+    return $this;
   }
   
 }

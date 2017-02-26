@@ -26,6 +26,7 @@ $app->group('/api/v1', function() use ($app){
   
   require "./src/routes/Auth.php";
   require "./src/routes/Information.php";
+  require "./src/routes/WorkExperience.php";
   
 });
 

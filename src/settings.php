@@ -73,4 +73,19 @@ $c['phpErrorHandler'] = function ($c) {
     };
 };
 
+$c['notFoundHandler'] = function ($c) {
+    return function ($request, $response) use ($c) {
+        global $app;
+        $data = [
+            'status' => 404,
+            'error' => true,
+            'msg' => 'Not found'
+        ];
+        return $c['response']->withStatus(404)
+                             ->withHeader('Content-Type', 'application/json')
+                             ->write(json_encode($data));
+    };
+};
+
+
 return $c;

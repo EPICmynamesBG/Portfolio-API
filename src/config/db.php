@@ -24,7 +24,7 @@ class DB {
         $errorString = $db->error()[2];
         if (sizeof($errorString) > 0) {
           if ($CONFIG['debug']){
-            throw new Exception('DB Error: '.$errorString . ' # Last query: ' . $db->last_query(), 500);
+            throw new Exception('DB Error: '.$errorString . ' # Last query: ' . $db->last(), 500);
           }
             throw new Exception('DB Error: '.$errorString , 500);
         }

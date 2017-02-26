@@ -51,6 +51,7 @@ $settings = require __DIR__ . '/src/settings.php';
 
 $app = new \Slim\App($settings);
 
+require __DIR__ . '/src/util/util.php';
 require __DIR__ . '/src/util/jwt.php';
 
 // Set up dependencies
