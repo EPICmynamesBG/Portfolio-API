@@ -175,7 +175,7 @@ class WorkContact {
     $results = $db->delete('workContacts', '*', ['workExperienceId' => $workExpId]);
     DB::handleError($db);
     
-    if (!isset($deleted)) {
+    if (!isset($results)) {
       throw new Exception("An error occurred deleting WorkContacts with workExperienceId ". $workExpId, 500);
     }
     
