@@ -66,7 +66,13 @@ class WorkExperience {
   public $description;
   
   /**
-   * @SWG\Property(format="timestamp")
+   * @SWG\Property(default=true)
+   * @var boolean
+   */
+  public $hidden = true;
+  
+  /**
+   * @SWG\Property(format="timestamp", default=time())
    * @var string
    */
   public $lastUpdated;
@@ -87,6 +93,7 @@ class WorkExperience {
       $this->startDate = $data['startDate'];
       $this->endDate = $data['endDate'];
       $this->description = $data['description'];
+      $this->hidden = $data['hidden'];
       $this->lastUpdated = $data['lastUpdated'];
       $this->contacts = Contact::getAllForWorkExperience($this->id);
     }
@@ -152,6 +159,18 @@ class WorkExperience {
     return $contacts;
   }
   
+  public static function getAllVisible() {
+    $db = DB::getInstance();
+    $results = $db->select('workExperience', '*', ['hidden' => false]);
+    DB::handleError($db);
+    
+    $contacts = [];
+    foreach ($results as $row) {
+      $contacts[] = new WorkExperience($row);
+    }
+    
+    return $contacts;
+  }
   
   public static function getById($id) {
     if (!isset($id)){
@@ -206,7 +225,6 @@ class WorkExperience {
     $db = DB::getInstance();
     
     Contact::deleteAllForWorkExperience($this->id);
-    Tag::deleteAllForWorkExperience($this->id);
     
     $deleted = $db->delete('workExperience', ['id' => $this->id]);
     DB::handleError($db);
@@ -214,6 +232,29 @@ class WorkExperience {
     if (!isset($deleted) || $deleted != 1) {
       throw new Exception("An error occurred deleting workExperience ". $this->title, 500);
     }
+    
+    return $this;
+  }
+  
+  
+  // ------- Simple update --------
+  
+  public function changeVisibility($hidden = true) {
+    $db = DB::getInstance();
+    
+    $updated = $db->update('workExperience', [
+      'hidden' => $hidden,
+      'lastUpdated' => time()
+    ], [
+      'id' => $this->id
+    ]);
+    DB::handleError($db);
+    
+    if (!isset($updated) || $updated != 1) {
+      throw new Exception("An error occurred updating workExperience ". $this->title, 500);
+    }
+    
+    $this->hidden = $hidden;
     
     return $this;
   }

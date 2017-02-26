@@ -1,9 +1,10 @@
 <?php
 
+require_once './src/model/Projects/ProjectTags.php';
+
 /**
  * @SWG\Definition(
  *  required={
- *      "id",
  *      "name"
  *   },
  *   description="A Tag object"
@@ -31,7 +32,7 @@ class Tag {
   }
   
   
-  public static function create($name) {
+  private static function create($name) {
     if (!isset($name)){
       throw new Exception("Tag name required", 400);
     }
@@ -184,7 +185,7 @@ class Tag {
     return $tags;
   }
   
-  //doesn't actually delete the contact table instance, but the workContact relationship
+  //doesn't actually delete the table instance, but the relationship instanct
   public static function deleteAllForProject($projectId) {
     return ProjectTag::deleteAllForWorkExperience($projectId);
   }

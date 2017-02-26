@@ -126,11 +126,11 @@ class ProjectTag {
   
   public static function findOrCreate($tagId, $projId) {
     if (!isset($tagId)){
-      throw new Exception("ContactId required", 500);
+      throw new Exception("TagId required", 500);
     }
     
     if (!isset($projId)){
-      throw new Exception("WorkExperienceId required", 500);
+      throw new Exception("ProjectId required", 500);
     }
     
     $db = DB::getInstance();
@@ -165,14 +165,14 @@ class ProjectTag {
   }
   
   
-  public static function deleteAllForWorkExperience($projId) {
+  public static function deleteAllForProject($projId) {
     if (!isset($projId)){
       throw new Exception("ProjectTag projectId required", 500);
     }
     
     $db = DB::getInstance();
     
-    $results = $db->delete('projectTags', '*', ['projectId' => $projId]);
+    $results = $db->delete('projectTags', ['projectId' => $projId]);
     DB::handleError($db);
     
     if (!isset($results)) {

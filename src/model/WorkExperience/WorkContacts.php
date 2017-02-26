@@ -172,7 +172,7 @@ class WorkContact {
     
     $db = DB::getInstance();
     
-    $results = $db->delete('workContacts', '*', ['workExperienceId' => $workExpId]);
+    $results = $db->delete('workContacts', ['workExperienceId' => $workExpId]);
     DB::handleError($db);
     
     if (!isset($results)) {

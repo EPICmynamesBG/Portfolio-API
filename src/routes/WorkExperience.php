@@ -10,7 +10,7 @@ $app->group('/work.experience', function() use ($app){
     * @SWG\Get(
     *     path="/work.experience",
     *     summary="Get All",
-    *     description="Get all work experience",
+    *     description="Get all work experience that is not hidden. If `Admin` auth token provided, gets all.",
     *     tags={"Work Experience"},
     *     @SWG\Response(
     *         response=200,
@@ -35,7 +35,18 @@ $app->group('/work.experience', function() use ($app){
     * )
     */
   $app->get('', function($request, $response, $args){
-    $experience = WorkExperience::getAll();
+    try {
+      $admin = JWT::validateJWTForAdmin($request);
+    } catch (Exception $e) {
+      //this is fine
+    }
+    
+    if (isset($admin)) {
+      $experience = WorkExperience::getAll();
+    } else {
+      $experience = WorkExperience::getAllVisible();
+    }
+    
     $output = ['data' => $experience];
     return $response->getBody()->write(json_encode($output));
   });
