@@ -1,0 +1,37 @@
+<nav class="blue-grey lighten-3">
+  <header>
+    <h1>Portfolio Admin</h1>
+    <summary>Administrative management for brandongroff.com</summary>
+  </header>
+  <main>
+    <ul>
+      <li class="bold" ng-repeat="item in rootNavList" ui-sref-active="active" ng-if="!item.subviews">
+        <a ui-sref="{{item.name}}" class="waves-effect">{{item.name}}</a>
+      </li>
+      <li class="no-padding">
+        <ul class="collapsible" data-collapsible="accordion">
+
+
+
+          <li class="bold" ng-repeat="item in subNavList" ui-sref="{{item.name}}" ui-sref-active="active">
+            <a class="collapsible-header waves-effect waves">{{item.name}}</a>
+            <div class="collapsible-body blue-grey lighten-3">
+              <ul>
+                <li class="subnav-item"  ng-repeat="subview in item.subviews" ui-sref-active="active">
+                  <a ui-sref="{{subview.name}}" class="waves-effect waves">{{subview.name}}</a>
+                </li>
+              </ul>
+            </div>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </main>
+  <footer class="page-footer blue-grey">
+    <div class="footer-copyright">
+      <div class="container">
+        © 2017 Copyright <a href="http://brandongroff.com" target="_blank">Brandon Groff</a>
+      </div>
+    </div>
+  </footer>
+</nav>

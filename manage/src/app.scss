@@ -1,0 +1,68 @@
+@import "../node_modules/materialize-css/sass/components/color";
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  position: relative;
+  font-family: "Verdana", serif;
+  color: color('blue-grey', 'darken-4');
+}
+
+body > main {
+  padding-left: 300px;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+body > main > article {
+  padding: 20px;
+}
+
+@media only screen and (max-width: 992px) {
+  body > main {
+    padding-left: 0;
+  }
+}
+
+.underline {
+  text-decoration: underline;
+}
+
+pre div.code-row {
+  height: 2rem;
+  position: relative;
+  display: block;
+  code {
+    position: absolute;
+    left: 1rem;
+    top: 0;
+    height: auto;
+    display: block;
+  }
+}
+
+.overflow-off {
+  overflow: visible;
+}
+
+p {
+  text-indent: 1rem;
+  margin: 8px auto 8px 1rem;
+  max-width: 600px;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  /* display: none; <- Crashes Chrome on hover */
+  -webkit-appearance: none;
+  margin: 0;
+  /* <-- Apparently some margin are still there even though it's hidden */
+}
+
+img {
+  max-width: 100%;
+  max-height: 100%;
+}
+
+@import "./modules/App.Nav/app.nav";
+@import "./global-styles/forms";

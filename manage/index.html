@@ -13,10 +13,28 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta http-equiv="Content-Type" content="text/html" charset="utf-8" />
 
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" type="text/css" />
+  <link href="./node_modules/materialize-css/dist/css/materialize.css" type="text/css" rel="stylesheet" />
+  <link href="./dist/app.css" type="text/css" rel="stylesheet" />
+
 </head>
 
-<body class="blue-grey lighten-5">
-  MANAGE
+<body class="blue-grey lighten-5" ng-app="admin">
+  <a href="#" data-activates="slide-out" class="button-collapse hide-on-large-only" id="nav-menu-button"><i class="material-icons">menu</i></a>
+  <aside class="side-nav fixed" id="slide-out">
+    <app-nav></app-nav>
+  </aside>
+  <main>
+    <article ui-view></article>
+  </main>
+
+  <script src="./node_modules/jquery/dist/jquery.js" type="text/javascript"></script>
+  <script src="./node_modules/materialize-css/dist/js/materialize.js" type="text/javascript"></script>
+  <script src="./node_modules/angular/angular.js" type="text/javascript"></script>
+  <script src="./node_modules/angular-ui-router/release/angular-ui-router.js" type="text/javascript"></script>
+
+  <script src="./dist/templates.js" type="text/javascript"></script>
+  <script src="./dist/app.js" type="text/javascript"></script>
 </body>
 
 </html>

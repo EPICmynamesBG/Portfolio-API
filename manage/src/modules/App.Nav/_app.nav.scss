@@ -1,0 +1,91 @@
+nav {
+  color: black;
+  /* Enable Sticky footer */
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+  header {
+    text-align: center;
+    h1 {
+      font-size: 2.5rem;
+    }
+    summary {
+      line-height: normal;
+      font-size: 0.8rem;
+      font-style: italic;
+    }
+  }
+  main {
+    /* Enable Sticky footer */
+    flex: 1 0 auto;
+    padding: 20px 0;
+    li > a > i.material-icons.right {
+      margin-right: 0;
+    }
+    
+    li.bold > a {
+      font-weight: bold;
+    }
+    
+    li.active > a {
+      background-color: rgba(0, 0, 0, 0.05); 
+    }
+    
+    li.active > .collapsible-body {
+      background-color: transparent;
+    }
+    
+    .collapsible-body {
+      padding: 0px;
+      li.subnav-item > a {
+        font-weight: 400;
+        padding: 0 37.5px 0 45px !important;
+      }
+      li.active {
+        background-color: rgba(0, 0, 0, 0.10) !important;
+        & > a {
+          color: black !important;
+        }
+      }
+    }
+  }
+  footer {
+    font-size: 14px;
+    text-align: center;
+    .footer-copyright {
+      min-height: inherit !important;
+      padding: 0 !important;
+    }
+    .container {
+      width: 100% !important;
+      height: auto;
+      a {
+        display: inline;
+        color: white;
+        height: auto;
+        line-height: normal;
+        padding: 0;
+        &:hover {
+          background-color: inherit;
+        }
+      }
+    }
+  }
+}
+
+.side-nav .collapsible-header,
+.side-nav.fixed .collapsible-header {
+  padding: 0 32px;
+}
+
+#nav-menu-button {
+  position: fixed;
+  top: 10px;
+  left: 10px;
+  z-index: 1000;
+  > i {
+    background-color: color('blue-grey', 'lighten-2');
+    padding: 6px;
+    border-radius: 2px;
+  }
+}

@@ -1,0 +1,23 @@
+form {
+  .inline {
+    display: inline;
+  }
+  input.box-input {
+    height: 2.5rem;
+    width: 2.5rem;
+    background-color: white;
+    border-radius: 2px;
+    border: 1px solid color('lime', 'base');
+    text-indent: 3px;
+    &.wide {
+      width: 4rem;
+    }
+  }
+  sup > input.box-input {
+    height: 1.5rem;
+    width: 1.75rem;
+    font-size: 0.75rem;
+    line-height: 1.5rem;
+    top: -1rem;
+  }
+}
