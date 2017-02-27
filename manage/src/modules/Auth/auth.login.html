@@ -1,0 +1,37 @@
+<div class="login blue-grey lighten-4 z-depth-2">
+  <section class="section login-header">
+    <div class="row">
+      <div class="col s11 offset-s1">
+        <h2>Login</h2>
+      </div>
+    </div>
+  </section>
+  <div class="divider"></div>
+  <section class="section">
+    <form name="auth">
+      <div class="row">
+        <div class="col s12 input-field">
+          <input type="email" name="email" ng-model="email" required />
+          <label for="email">Email</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col s12 input-field">
+          <input type="password" name="password" ng-model="password" required />
+          <label for="password">Password</label>
+        </div>
+      </div>
+    </form>
+  </section>
+  <div class="divider"></div>
+  <section class="section">
+    <div class="row">
+      <div class="col s9">
+        <span class="error red-text">{{error}}</span>
+      </div>
+      <div class="col s3">
+        <button form="auth" type="submit" class="btn waves-effect waves btn-flat green lighten-2" ng-disabled="auth.$invalid" ng-click="login()">Login</button>
+      </div>
+    </div>
+  </section>
+</div>

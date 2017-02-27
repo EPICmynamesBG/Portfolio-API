@@ -4,18 +4,21 @@
   margin: 0;
   padding: 0;
   position: relative;
-  font-family: "Verdana", serif;
+  font-family: "Roboto", serif;
   color: color('blue-grey', 'darken-4');
 }
 
+$nav-width: 300px;
+
 body > main {
-  padding-left: 300px;
+  position: relative;
+  padding-left: $nav-width;
   overflow-x: hidden;
   overflow-y: auto;
 }
 
 body > main > article {
-  padding: 20px;
+  height: 100%;
 }
 
 @media only screen and (max-width: 992px) {
@@ -64,5 +67,8 @@ img {
   max-height: 100%;
 }
 
+
 @import "./modules/App.Nav/app.nav";
+@import "./components/App.SubNav/app.sub.nav";
+@import "./modules/Auth/auth.login";
 @import "./global-styles/forms";

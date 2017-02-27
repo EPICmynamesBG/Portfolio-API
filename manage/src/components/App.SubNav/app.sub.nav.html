@@ -1,0 +1,22 @@
+<aside id="app-sub-nav">
+  <nav class="blue-grey lighten-4 z-depth-2">
+    <header>
+      <h3>{{header}}</h3>
+    </header>
+    <main>
+      <ul>
+        <li class="bold" ng-repeat="item in routeItems" ui-sref-active="active-nav">
+          <a ui-sref="{{itemType}}.details({id: item.id})" class="waves-effect">{{item[routeVariable]}}</a>
+        </li>
+      </ul>
+    </main>
+    <footer>
+      <div>
+        <div>
+          <button class="btn green lighten-2 waves-effect waves-light" type="button" ng-click="create()">Create
+          </button>
+        </div>
+      </div>
+    </footer>
+  </nav>
+</aside>

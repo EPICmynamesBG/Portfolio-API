@@ -13,14 +13,15 @@ infoModule.config(['$stateProvider', function ($stateProvider) {
         tags: [
         "info",
         "information"
-      ]
+      ],
+        requiresLogin: true
       }
     })
     .state('Interests', {
       url: '/interests',
       templateUrl: './src/modules/Information/Interests/interests.html',
       controller: 'InterestsController',
-      parent: 'Information',
+      subviewOf: 'Information',
       data: {
         order: 0
       }
@@ -29,7 +30,7 @@ infoModule.config(['$stateProvider', function ($stateProvider) {
       url: '/skills',
       templateUrl: './src/modules/Information/Skills/skills.html',
       controller: 'SkillsController',
-      parent: 'Information',
+      subviewOf: 'Information',
       data: {
         order: 1
       }

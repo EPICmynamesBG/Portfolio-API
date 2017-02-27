@@ -2,22 +2,24 @@
   <header>
     <h1>Portfolio Admin</h1>
     <summary>Administrative management for brandongroff.com</summary>
+    <div class="row" ng-if="$auth.isAuthenticated()">
+      <div class="col s12">
+        <a class="logout" ui-sref="Logout">Logout</a>
+      </div>
+    </div>
   </header>
   <main>
-    <ul>
-      <li class="bold" ng-repeat="item in rootNavList" ui-sref-active="active" ng-if="!item.subviews">
+    <ul ng-if="$auth.isAuthenticated()">
+      <li class="bold" ng-repeat="item in rootNavList" ui-sref-active="active-nav" ng-if="!item.subviews">
         <a ui-sref="{{item.name}}" class="waves-effect">{{item.name}}</a>
       </li>
       <li class="no-padding">
-        <ul class="collapsible" data-collapsible="accordion">
-
-
-
-          <li class="bold" ng-repeat="item in subNavList" ui-sref="{{item.name}}" ui-sref-active="active">
-            <a class="collapsible-header waves-effect waves">{{item.name}}</a>
+        <ul class="collapsible">
+          <li class="bold" ng-repeat="item in subNavList" ui-sref-active="active-nav">
+            <a class="collapsible-header waves-effect waves" ui-sref="{{item.name}}" >{{item.name}}</a>
             <div class="collapsible-body blue-grey lighten-3">
               <ul>
-                <li class="subnav-item"  ng-repeat="subview in item.subviews" ui-sref-active="active">
+                <li class="subnav-item"  ng-repeat="subview in item.subviews" ui-sref-active="active-nav">
                   <a ui-sref="{{subview.name}}" class="waves-effect waves">{{subview.name}}</a>
                 </li>
               </ul>

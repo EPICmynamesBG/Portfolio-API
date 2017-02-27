@@ -11,7 +11,21 @@ workModule.config(['$stateProvider', function ($stateProvider) {
         order: 1,
         tags: [
         "work"
-      ]
+      ],
+        requiresLogin: true
+      }
+    })
+    .state('Contacts', {
+      url: '/contacts',
+      templateUrl: './src/modules/WorkExperience/Contacts/contacts.html',
+      controller: 'WorkExperienceController',
+      subviewOf: 'Work Experience',
+      data: {
+        order: 0,
+        tags: [
+        "contacts"
+      ],
+        requiresLogin: true
       }
     });
 
