@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost:8889
--- Generation Time: Feb 25, 2017 at 10:44 PM
+-- Generation Time: Feb 27, 2017 at 04:28 AM
 -- Server version: 5.5.42
 -- PHP Version: 7.0.8
 
@@ -89,7 +89,8 @@ CREATE TABLE `interests` (
 CREATE TABLE `projectImages` (
   `id` int(10) unsigned NOT NULL,
   `imageId` int(10) unsigned NOT NULL,
-  `projectId` int(10) unsigned NOT NULL
+  `projectId` int(10) unsigned NOT NULL,
+  `orderNum` tinyint(3) unsigned NOT NULL DEFAULT '0' COMMENT 'the order of this image in the project''s carousel'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -102,13 +103,13 @@ CREATE TABLE `projects` (
   `id` int(10) unsigned NOT NULL,
   `title` varchar(200) NOT NULL,
   `linkText` varchar(300) DEFAULT NULL,
-  `linkImage` varchar(500) DEFAULT NULL COMMENT 'a url string',
+  `linkImageId` int(10) unsigned DEFAULT NULL COMMENT 'an image object',
   `linkLocation` varchar(1000) DEFAULT NULL COMMENT 'the link href',
-  `startDate` timestamp NULL DEFAULT NULL,
-  `endDate` timestamp NULL DEFAULT NULL,
+  `startDate` date DEFAULT NULL,
+  `endDate` date DEFAULT NULL,
   `status` varchar(500) DEFAULT NULL COMMENT 'completion status',
-  `event` varchar(500) DEFAULT NULL,
   `description` text,
+  `hidden` tinyint(1) NOT NULL DEFAULT '1',
   `lastUpdated` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -173,7 +174,20 @@ CREATE TABLE `workExperience` (
   `startDate` date NOT NULL,
   `endDate` date DEFAULT NULL COMMENT 'null = still working',
   `description` text NOT NULL,
+  `hidden` tinyint(1) NOT NULL DEFAULT '1',
   `lastUpdated` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `workTags`
+--
+
+CREATE TABLE `workTags` (
+  `id` int(10) unsigned NOT NULL,
+  `tagId` int(10) unsigned NOT NULL,
+  `workExperienceId` int(10) unsigned NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -216,7 +230,8 @@ ALTER TABLE `projectImages`
 -- Indexes for table `projects`
 --
 ALTER TABLE `projects`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_proj_linkImage` (`linkImageId`);
 
 --
 -- Indexes for table `projectTags`
@@ -251,6 +266,14 @@ ALTER TABLE `workContacts`
 --
 ALTER TABLE `workExperience`
   ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `workTags`
+--
+ALTER TABLE `workTags`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_tag_tagId` (`tagId`),
+  ADD KEY `fk_tag_workExpId` (`workExperienceId`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -312,6 +335,11 @@ ALTER TABLE `workContacts`
 ALTER TABLE `workExperience`
   MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT;
 --
+-- AUTO_INCREMENT for table `workTags`
+--
+ALTER TABLE `workTags`
+  MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT;
+--
 -- Constraints for dumped tables
 --
 
@@ -319,8 +347,14 @@ ALTER TABLE `workExperience`
 -- Constraints for table `projectImages`
 --
 ALTER TABLE `projectImages`
-  ADD CONSTRAINT `fk_image_imageId` FOREIGN KEY (`imageId`) REFERENCES `images` (`id`),
-  ADD CONSTRAINT `fk_images_projId` FOREIGN KEY (`projectId`) REFERENCES `projects` (`id`);
+  ADD CONSTRAINT `fk_images_projId` FOREIGN KEY (`projectId`) REFERENCES `projects` (`id`),
+  ADD CONSTRAINT `fk_image_imageId` FOREIGN KEY (`imageId`) REFERENCES `images` (`id`);
+
+--
+-- Constraints for table `projects`
+--
+ALTER TABLE `projects`
+  ADD CONSTRAINT `fk_proj_linkImage` FOREIGN KEY (`linkImageId`) REFERENCES `images` (`id`);
 
 --
 -- Constraints for table `projectTags`
@@ -335,6 +369,13 @@ ALTER TABLE `projectTags`
 ALTER TABLE `workContacts`
   ADD CONSTRAINT `fk_contact_contactId` FOREIGN KEY (`contactId`) REFERENCES `contacts` (`id`),
   ADD CONSTRAINT `fk_work_workId` FOREIGN KEY (`workExperienceId`) REFERENCES `workExperience` (`id`);
+
+--
+-- Constraints for table `workTags`
+--
+ALTER TABLE `workTags`
+  ADD CONSTRAINT `fk_tag_tagId` FOREIGN KEY (`tagId`) REFERENCES `tags` (`id`),
+  ADD CONSTRAINT `fk_tag_workExpId` FOREIGN KEY (`workExperienceId`) REFERENCES `workExperience` (`id`);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
