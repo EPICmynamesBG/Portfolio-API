@@ -163,7 +163,7 @@ class Tag {
   }
   
   public static function getAllForProject($projectId) {
-    $projectTags = ProjectTag::getAllForWorkExperience($projectId);
+    $projectTags = ProjectTag::getAllForProject($projectId);
     
     $tagIdArr = [];
     foreach($projectTags as $projTag) {
@@ -187,7 +187,7 @@ class Tag {
   
   //doesn't actually delete the table instance, but the relationship instanct
   public static function deleteAllForProject($projectId) {
-    return ProjectTag::deleteAllForWorkExperience($projectId);
+    return ProjectTag::deleteAllForProject($projectId);
   }
   
 }

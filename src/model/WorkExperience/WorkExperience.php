@@ -72,7 +72,7 @@ class WorkExperience {
   public $hidden = true;
   
   /**
-   * @SWG\Property(format="timestamp", default=time())
+   * @SWG\Property(format="timestamp", default="time()")
    * @var string
    */
   public $lastUpdated;

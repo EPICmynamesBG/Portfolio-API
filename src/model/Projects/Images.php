@@ -194,7 +194,7 @@ class Image {
   }
   
   public static function getAllForProject($projectId) {
-    $projectImages = ProjectImage::getAllForWorkExperience($projectId);
+    $projectImages = ProjectImage::getAllForProject($projectId);
     
     $imageIdArr = [];
     foreach($projectImages as $projImage) {
@@ -218,7 +218,7 @@ class Image {
   
   //doesn't actually delete the table instance, but the relationship instance
   public static function deleteAllForProject($projectId) {
-    return ProjectImage::deleteAllForWorkExperience($projectId);
+    return ProjectImage::deleteAllForProject($projectId);
   }
   
 }

@@ -64,7 +64,7 @@ class Project {
   public $endDate = null;
   
   /**
-   * @SWG\Property(default=null, description="The project's current status. ie: complete, in progress, etc.)
+   * @SWG\Property(default=null, description="The project's current status. ie: complete, in progress, etc.")
    * @var string
    */
   public $status = null;
@@ -82,7 +82,7 @@ class Project {
   public $hidden = true;
   
   /**
-   * @SWG\Property(format="timestamp", default=time())
+   * @SWG\Property(format="timestamp", default="time()")
    * @var string
    */
   public $lastUpdated;
@@ -199,6 +199,25 @@ class Project {
     
     return $projects;
   }
+  
+  
+  public static function getById($id) {
+    if (!isset($id)){
+      throw new Exception("Project id required", 400);
+    }
+    
+    $db = DB::getInstance();
+    
+    $results = $db->select('projects', '*', ['id' => $id]);
+    DB::handleError($db);
+    
+    if (sizeof($results) != 1){
+      throw new Exception("Project " . $id . " not found.", 404);
+    }
+    
+    return new Project($results[0]);
+  }
+  
   
   public function update($data) {
     if (!isset($data)){
