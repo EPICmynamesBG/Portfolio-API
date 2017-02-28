@@ -41,7 +41,7 @@ authModule.config(['$stateProvider', 'jwtOptionsProvider', '$httpProvider', func
 
 }]);
 
-authModule.run(['authManager', '$rootScope', '$state', '$auth', function (authManager, $rootScope, $state, $auth) {
+authModule.run(['authManager', '$rootScope', '$state', '$auth', 'AuthAPI', function (authManager, $rootScope, $state, $auth, AuthAPI) {
   
   authManager.checkAuthOnRefresh();
 
@@ -52,4 +52,8 @@ authModule.run(['authManager', '$rootScope', '$state', '$auth', function (authMa
     $state.go('Login');
   });
 
+  
+  //validate the current token on initial page load
+  AuthAPI.validateToken();
+  
 }]);

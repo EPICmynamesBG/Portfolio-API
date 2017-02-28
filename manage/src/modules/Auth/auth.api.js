@@ -6,7 +6,7 @@ authModule.factory('AuthAPI', function ($http, config, $auth, $rootScope) {
 
 
   factory.login = function (email, password) {
-    
+
     return $http({
       method: 'POST',
       url: baseUrl + '/login',
@@ -27,9 +27,11 @@ authModule.factory('AuthAPI', function ($http, config, $auth, $rootScope) {
           //TODO
           if (response.data.valid) {
             resolve(true);
-            return;
+          } else {
+            $rootScope.$broadcast('tokenHasExpired');
+            resolve(false);
           }
-          resolve(false);
+          
         }, function (error) {
           console.error(error);
           if (error.status == 403 || error.status == 401) {

@@ -1,4 +1,4 @@
-var projModule = angular.module('admin.projects', ['ui.router']);
+var projModule = angular.module('admin.projects', ['ui.router', 'textAngular']);
 
 projModule.config(['$stateProvider', function ($stateProvider) {
 
@@ -15,20 +15,20 @@ projModule.config(['$stateProvider', function ($stateProvider) {
         requiresLogin: true
       }
     })
-    .state('Projects.Details', {
-      url: '/:id',
-      templateUrl: './src/modules/Projects/Details/projects.details.html',
-      controller: 'ProjectDetailsController',
+    .state('Projects.Create', {
+      url: '/create',
+      templateUrl: './src/modules/Projects/Create/projects.create.html',
+      controller: 'CreateProjectsController',
       parent: 'Projects',
       excludeFromSidenav: true,
       data: {
 
       }
     })
-    .state('Projects.Create', {
-      url: '/create',
-      templateUrl: './src/modules/Projects/Create/projects.create.html',
-      controller: 'CreateProjectsController',
+    .state('Projects.Details', {
+      url: '/:id',
+      templateUrl: './src/modules/Projects/Details/projects.details.html',
+      controller: 'ProjectDetailsController',
       parent: 'Projects',
       excludeFromSidenav: true,
       data: {
@@ -49,20 +49,20 @@ projModule.config(['$stateProvider', function ($stateProvider) {
         requiresLogin: true
       }
     })
-    .state('Tags.Details', {
-      url: '/:id',
-      templateUrl: './src/modules/Projects/Tags/Details/tags.details.html',
-      controller: 'TagDetailsController',
+    .state('Tags.Create', {
+      url: '/create',
+      templateUrl: './src/modules/Projects/Tags/Create/tags.create.html',
+      controller: 'CreateTagsController',
       parent: 'Tags',
       excludeFromSidenav: true,
       data: {
 
       }
     })
-    .state('Tags.Create', {
-      url: '/create',
-      templateUrl: './src/modules/Projects/Tags/Create/tags.create.html',
-      controller: 'CreateTagsController',
+    .state('Tags.Details', {
+      url: '/:id',
+      templateUrl: './src/modules/Projects/Tags/Details/tags.details.html',
+      controller: 'TagDetailsController',
       parent: 'Tags',
       excludeFromSidenav: true,
       data: {
@@ -83,20 +83,20 @@ projModule.config(['$stateProvider', function ($stateProvider) {
         requiresLogin: true
       }
     })
-    .state('Images.Details', {
-      url: '/:id',
-      templateUrl: './src/modules/Projects/Images/Details/images.details.html',
-      controller: 'ImageDetailsController',
+    .state('Imgaes.Create', {
+      url: '/create',
+      templateUrl: './src/modules/Projects/Images/Create/images.create.html',
+      controller: 'ImageTagsController',
       parent: 'Images',
       excludeFromSidenav: true,
       data: {
 
       }
     })
-    .state('Imgaes.Create', {
-      url: '/create',
-      templateUrl: './src/modules/Projects/Images/Create/images.create.html',
-      controller: 'ImageTagsController',
+    .state('Images.Details', {
+      url: '/:id',
+      templateUrl: './src/modules/Projects/Images/Details/images.details.html',
+      controller: 'ImageDetailsController',
       parent: 'Images',
       excludeFromSidenav: true,
       data: {

@@ -1,1 +1,99 @@
-<h5>Create</h5>
+<form name="project.create">
+  <div class="row">
+    <div class="col s12">
+      <h4>Create a Project</h4>
+      <div class="divider"></div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="input-field col s6">
+      <input placeholder="Title" id="title" name="title" ng-model="project.title" type="text" required class="validate" />
+      <label for="title">Title</label>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col s12">
+      <h5>Linking</h5>
+      <div class="divider"></div>
+    </div>
+    <div class="row">
+      <div class="input-field col s6 offset-s1">
+        <input placeholder="Text" id="link-text" name="link-text" ng-model="project.linkText" type="text" class="validate" />
+        <label for="link-text">Link Text</label>
+      </div>
+    </div>
+    <div class="row">
+      <div class="input-field col s6 offset-s1">
+        <input placeholder="url" id="link-text" name="link-location" ng-model="project.linkLocation" type="url" class="validate" />
+        <label for="link-location">Link Location (href)</label>
+      </div>
+    </div>
+    <div class="row">
+      <h6>Link Image</h6>
+      <div class="input-field col s6">
+        <select ng-model="project.linkImageId" ng-disabled="project.linkImage.name || imageList.length == 0">
+          <option value='' disabled selected>Choose your option</option>
+          <option value="{{option.id}}" ng-repeat="option in imageList" data-icon="{{option.url}}" class="circle">{{option.name}}: {{option.label}}</option>
+        </select>
+        <label>Use Existing Image</label>
+      </div>
+      <div class="input-field col s6">
+        <div class="row">
+          <div class="col s12">
+            <p><b>New Image</b></p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col s12 input-field">
+            <input placeholder="name" id="link-image-name" name="link-image-name" ng-model="project.linkImage.name" type="text" class="validate" ng-disabled="project.linkImageId" />
+            <label for="link-image-name">Image Name</label>
+          </div>
+          <div class="col s12 input-field">
+            <input placeholder="url" id="link-image-url" name="link-image-url" ng-model="project.linkImage.url" type="url" class="validate" ng-disabled="project.linkImageId" />
+            <label for="link-image-url">Image Url (relative or absolute)</label>
+          </div>
+          <div class="col s12 input-field">
+            <input placeholder="label" id="link-image-label" name="link-image-label" ng-model="project.linkImage.label" type="text" class="validate" ng-disabled="project.linkImageId" />
+            <label for="link-image-label">Image Label/Caption</label>
+          </div>
+          <div class="col s12 input-field">
+            <input placeholder="alt" id="link-image-alt" name="link-image-alt" ng-model="project.linkImage.alt" type="text" class="validate" ng-disabled="project.linkImageId" />
+            <label for="link-image-alt">Image Alt Description</label>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="input-field col s12">
+        <h6>Date Range</h6>
+      </div>
+      <div class="input-field col s4">
+        <input placeholder="12-7-2012" id="start-date" name="start-date" ng-model="project.startDate" type="date" class="validate datepicker" />
+        <label for="start-date">Start Date</label>
+      </div>
+      <div class="input-field col s4">
+        <input ng-value="true" id="current-work" name="current-work" ng-model="project.endCurrent" type="checkbox" class="validate" checked />
+        <label for="current-work">Currently Working</label>
+      </div>
+      <div class="input-field col s4">
+        <input placeholder="12-7-2014" id="end-date" name="end-date" ng-model="project.endDate" type="date" class="validate datepicker" ng-disabled="project.endCurrent" />
+        <label for="end-date">End Date</label>
+      </div>
+    </div>
+    <div class="row">
+      <div class="input-field col s6">
+        <input placeholder="completed" id="status" name="status" ng-model="project.status" type="text" class="validate" />
+        <label for="status">Project Status</label>
+      </div>
+    </div>
+    <div class="row">
+      <div class="input-field col s12">
+        <!--
+        <textarea id="description" class="materialize-textarea" data-length="120"></textarea>
+        <label for="description">Textarea</label>
+-->
+        <text-angular ng-model="project.description"></text-angular>
+      </div>
+    </div>
+  </div>
+</form>

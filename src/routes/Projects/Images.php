@@ -10,7 +10,7 @@ $app->group('/images', function() use ($app){
     *     path="/projects/images",
     *     summary="Get All",
     *     description="Get all images",
-    *     tags={"Tags"},
+    *     tags={"Images"},
     *     @SWG\Response(
     *         response=200,
     *         description="Success",
@@ -19,7 +19,7 @@ $app->group('/images', function() use ($app){
     *             required={"data"},
     *             @SWG\Property(property="data", type="array", 
     *               @SWG\Items(
-    *                 ref="#/definitions/Tag"
+    *                 ref="#/definitions/Image"
     *               )
     *             )
     *         )
@@ -34,7 +34,7 @@ $app->group('/images', function() use ($app){
     * )
     */
   $app->get('', function($request, $response, $args){
-    $images = Tag::getAll();
+    $images = Image::getAll();
     $output = ['data' => $images];
     return $response->getBody()->write(json_encode($output));
   });
@@ -45,7 +45,7 @@ $app->group('/images', function() use ($app){
     *     path="/projects/images/{id}",
     *     summary="Get by Id",
     *     description="Get an image by Id",
-    *     tags={"Tags"},
+    *     tags={"Images"},
     *     @SWG\Parameter(ref="#/parameters/id"),
     *     @SWG\Response(
     *         response=200,
@@ -53,7 +53,7 @@ $app->group('/images', function() use ($app){
     *         @SWG\Schema(
     *             type="object",
     *             required={"data"},
-    *             @SWG\Property(property="data", type="object", ref="#/definitions/Tag")
+    *             @SWG\Property(property="data", type="object", ref="#/definitions/Image")
     *         )
     *     ),
     *     @SWG\Response(
@@ -66,7 +66,7 @@ $app->group('/images', function() use ($app){
     * )
     */
   $app->get('/{id}', function($request, $response, $args){
-    $images = Tag::getById($args['id']);
+    $images = Image::getById($args['id']);
     $output = ['data' => $images];
     return $response->getBody()->write(json_encode($output));
   });

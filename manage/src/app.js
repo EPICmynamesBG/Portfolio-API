@@ -18,6 +18,10 @@ app.run(['$rootScope', '$state', '$timeout', function ($rootScope, $state, $time
       });
     }
   });
+  
+  $rootScope.$on('stateChangeError', function(evt, to, params){
+    console.error(evt, to, params);
+  });
 }]);
 
 

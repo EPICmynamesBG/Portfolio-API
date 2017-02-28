@@ -14,5 +14,12 @@ $side-nav-width: 200px;
   
   .sub-body {
     height: 100%;
+    padding: 10px;
+  }
+}
+
+@media screen and (max-width: 992px) {
+  #app-sub-nav {
+    left: 0;
   }
 }
