@@ -30,6 +30,6 @@ projModule.controller('CreateProjectsController', ['$scope', 'ProjectsAPI', 'Ima
   }
 
   init();
-
+  
 
 }]);

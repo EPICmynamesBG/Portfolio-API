@@ -1,4 +1,4 @@
-var projModule = angular.module('admin.projects', ['ui.router', 'textAngular']);
+var projModule = angular.module('admin.projects', ['ui.router']);
 
 projModule.config(['$stateProvider', function ($stateProvider) {
 

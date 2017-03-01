@@ -10,11 +10,12 @@
   "license": "MIT",
   "dependencies": {
     "angular": "^1.6.2",
+    "angular-froala": "^2.5.0",
     "angular-jwt": "^0.1.9",
     "angular-loading-bar": "^0.9.0",
     "angular-ui-router": "^0.4.2",
-    "materialize-css": "^0.98.0",
-    "textangular": "^1.5.16"
+    "froala-editor": "^2.5.0",
+    "materialize-css": "^0.98.0"
   },
   "devDependencies": {
     "gulp": "^3.9.1",

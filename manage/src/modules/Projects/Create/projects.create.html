@@ -6,7 +6,7 @@
     </div>
   </div>
   <div class="row">
-    <div class="input-field col s6">
+    <div class="input-field col s12 m6">
       <input placeholder="Title" id="title" name="title" ng-model="project.title" type="text" required class="validate" />
       <label for="title">Title</label>
     </div>
@@ -17,27 +17,27 @@
       <div class="divider"></div>
     </div>
     <div class="row">
-      <div class="input-field col s6 offset-s1">
+      <div class="input-field col s11 m6 offset-s1">
         <input placeholder="Text" id="link-text" name="link-text" ng-model="project.linkText" type="text" class="validate" />
         <label for="link-text">Link Text</label>
       </div>
     </div>
     <div class="row">
-      <div class="input-field col s6 offset-s1">
+      <div class="input-field col s11 m6 offset-s1">
         <input placeholder="url" id="link-text" name="link-location" ng-model="project.linkLocation" type="url" class="validate" />
         <label for="link-location">Link Location (href)</label>
       </div>
     </div>
     <div class="row">
       <h6>Link Image</h6>
-      <div class="input-field col s6">
+      <div class="input-field col s12 m6">
         <select ng-model="project.linkImageId" ng-disabled="project.linkImage.name || imageList.length == 0">
           <option value='' disabled selected>Choose your option</option>
           <option value="{{option.id}}" ng-repeat="option in imageList" data-icon="{{option.url}}" class="circle">{{option.name}}: {{option.label}}</option>
         </select>
         <label>Use Existing Image</label>
       </div>
-      <div class="input-field col s6">
+      <div class="input-field col s12 m6">
         <div class="row">
           <div class="col s12">
             <p><b>New Image</b></p>
@@ -67,32 +67,64 @@
       <div class="input-field col s12">
         <h6>Date Range</h6>
       </div>
-      <div class="input-field col s4">
+      <div class="input-field col s12 m4">
         <input placeholder="12-7-2012" id="start-date" name="start-date" ng-model="project.startDate" type="date" class="validate datepicker" />
         <label for="start-date">Start Date</label>
       </div>
-      <div class="input-field col s4">
+      <div class="input-field col s12 m4">
         <input ng-value="true" id="current-work" name="current-work" ng-model="project.endCurrent" type="checkbox" class="validate" checked />
         <label for="current-work">Currently Working</label>
       </div>
-      <div class="input-field col s4">
+      <div class="input-field col s12 m4">
         <input placeholder="12-7-2014" id="end-date" name="end-date" ng-model="project.endDate" type="date" class="validate datepicker" ng-disabled="project.endCurrent" />
         <label for="end-date">End Date</label>
       </div>
     </div>
     <div class="row">
-      <div class="input-field col s6">
+      <div class="input-field col s12">
         <input placeholder="completed" id="status" name="status" ng-model="project.status" type="text" class="validate" />
         <label for="status">Project Status</label>
       </div>
     </div>
     <div class="row">
       <div class="input-field col s12">
-        <!--
-        <textarea id="description" class="materialize-textarea" data-length="120"></textarea>
-        <label for="description">Textarea</label>
--->
-        <text-angular ng-model="project.description"></text-angular>
+        <h5>Carousel Images</h5>
+        <div class="divider"></div>
+      </div>
+      <div class="col s12 input-field">
+
+      </div>
+    </div>
+    <div class="input-field col s12">
+      <h5>Tags</h5>
+      <div class="divider"></div>
+    </div>
+    <div class="row">
+      <div class="col s12 m8" chip-field ng-model="project.tags">
+      </div>
+    </div>
+    <div class="input-field col s12">
+      <h5>Description</h5>
+      <div class="divider"></div>
+    </div>
+    <div class="row">
+      <div class="col s12">
+        <div class="row">
+          <h6>Show Live Preview</h6>
+          <div class="switch" ng-init="showPreview = false">
+            <label>
+              Off
+              <input type="checkbox" ng-value="true" ng-model="showPreview">
+              <span class="lever"></span> On
+            </label>
+          </div>
+        </div>
+        <textarea froala ng-model="project.description" required></textarea>
+      </div>
+    </div>
+    <div class="row" ng-if="showPreview">
+      <div class="col s12">
+        <div froala-view="project.description"></div>
       </div>
     </div>
   </div>

@@ -1,7 +1,11 @@
-var app = angular.module('admin', ['ui.router', 'angular-loading-bar', 'admin.templates', 'admin.info', 'admin.work', 'admin.projects', 'admin.auth']);
+var app = angular.module('admin', ['ui.router', 'angular-loading-bar', 'admin.templates', 'admin.info', 'admin.work', 'admin.projects', 'admin.auth', 'froala']);
 
 app.constant('config', {
   url: 'http://localhost:8888/api/v1'
+});
+
+app.value('froalaConfig', {
+  heightMin: 200
 });
 
 app.run(['$rootScope', '$state', '$timeout', function ($rootScope, $state, $timeout) {
