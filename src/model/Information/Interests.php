@@ -44,7 +44,7 @@ class Interest {
       throw new Exception("An error occurred creating interest ". $name, 500);
     }
     
-    $lastInsertedId = $db->lastInsertId();
+    $lastInsertedId = $db->id();
     
     return self::getById($lastInsertedId);
   }

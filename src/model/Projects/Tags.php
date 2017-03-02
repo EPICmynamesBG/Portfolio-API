@@ -23,30 +23,42 @@ class Tag {
    * @var string
    */
   public $name;
+
+  /**
+   * @SWG\Property(description="a Tag name", default=null)
+   * @var string
+   */
+  public $mdiIcon = null;
   
   public function __construct($data) {
     if (is_array($data)) {
       $this->id =  $data['id'];
       $this->name = $data['name'];
+      $this->mdiIcon = $data['mdiIcon'];
     }
   }
   
   
-  private static function create($name) {
+  private static function create($data) {
     if (!isset($name)){
       throw new Exception("Tag name required", 400);
     }
     
     $db = DB::getInstance();
-    
-    $results = $db->insert('tags', ['name' => $name]);
+
+    $createArr = [
+      'name' => $data['name']
+    ];
+    $createArr = Util::prepareOptionals($createArr, $data, ['mdiIcon']);
+
+    $results = $db->insert('tags', $createArr);
     DB::handleError($db);
     
     if (sizeof($results) != 1){
       throw new Exception("An error occurred creating tag ". $name, 500);
     }
     
-    $lastInsertedId = $db->lastInsertId();
+    $lastInsertedId = $db->id();
     
     return self::getById($lastInsertedId);
   }
@@ -85,14 +97,16 @@ class Tag {
   }
   
   
-  public function update($name) {
-    if (!isset($name)){
-      throw new Exception("Tag name required", 400);
+  public function update($data) {
+    if (!isset($data)){
+      throw new Exception("Tag update data required", 400);
     }
-    
+
+    $updateArr = Util::prepareOptionals([], $data, ['mdiIcon']);
+
     $db = DB::getInstance();
     
-    $updated = $db->update('tags', ['name' => $name], ['id' => $this->id]);
+    $updated = $db->update('tags', $updateArr, ['id' => $this->id]);
     DB::handleError($db);
     
     if (!isset($updated) || $updated != 1) {
@@ -102,9 +116,10 @@ class Tag {
     if (isset($data['name'])){
       $this->name = $data['name'];
     }
-    if (isset($data['email'])){
-      $this->email = $data['email'];
+    if (isset($data['mdiIcon'])){
+      $this->mdiIcon = $data['mdiIcon'];
     }
+
     return $this;
   }
   
@@ -147,7 +162,27 @@ class Tag {
     
     $createdTags = [];
     foreach($newTags as $toCreate) {
-      $createdTags[] = self::findOrCreate($toCreate);
+      if (gettype($toCreate) == "string"){
+        $createdTags[] = self::findOrCreate($toCreate);
+      } else { //is object
+
+        if (isset($toCreate['name'])){
+          if (isset($toCreate['id'])){
+            try {
+              $createdTags[] = self::getById($toCreate['id']);
+            } catch (Exception $e) {
+              //this is ok
+              $createdTags[] = self::findOrCreate($toCreate['name']);
+            }
+          } else {
+            $createdTags[] = self::findOrCreate($toCreate['name']);
+          }
+        } else {
+          throw new Exception('New tags passed as object must contain a name property', 400);
+        }
+      }
+
+
     }
     
     $createdWorkTags = [];
@@ -170,12 +205,12 @@ class Tag {
       $tagIdArr[] = $projTag->getTagId();
     }
     
-    if (sizeof($projIdArr) == 0){
+    if (sizeof($tagIdArr) == 0){
       return [];
     }
     
     $db = DB::getInstance();
-    $results = $db->select('tags', '*', ['id' => $projIdArr]);
+    $results = $db->select('tags', '*', ['id' => $tagIdArr]);
     DB::handleError($db);
     
     $tags = [];

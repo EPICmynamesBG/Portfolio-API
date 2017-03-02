@@ -9,7 +9,6 @@
 }
 
 $nav-width: 300px;
-
 body > main {
   position: relative;
   padding-left: $nav-width;
@@ -67,8 +66,16 @@ img {
   max-height: 100%;
 }
 
+//.chip i.mdi {
+//  float: left;
+//  margin: 0 8px 0 -12px;
+//  height: 32px;
+//  width: 32px;
+//  border-radius: 50%;
+//}
 
 @import "./modules/App.Nav/app.nav";
+@import "./modules/Projects/Images/images";
 @import "./components/App.SubNav/app.sub.nav";
 @import "./modules/Auth/auth.login";
 @import "./global-styles/forms";

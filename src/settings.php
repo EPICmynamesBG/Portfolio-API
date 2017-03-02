@@ -47,7 +47,6 @@ if ($CONFIG['debug']){
  */ 
 $c['errorHandler'] = function ($c) {
     return function ($request, $response, $exception) use ($c) {
-        global $app;
         $data = [
             'status' => $exception->getCode(),
             'error' => true,
@@ -61,12 +60,20 @@ $c['errorHandler'] = function ($c) {
 
 $c['phpErrorHandler'] = function ($c) {
     return function ($request, $response, $exception) use ($c) {
-        global $app;
+        global $CONFIG;
         $data = [
             'status' => $exception->getCode(),
             'error' => true,
             'msg' => $exception->getMessage()
         ];
+
+        if ($CONFIG['debug']){
+          $data['code'] = $exception->getCode();
+          $data['file'] = $exception->getFile();
+          $data['line'] = $exception->getLine();
+          $data['trace'] = $exception->getTraceAsString();
+        }
+
         return $c['response']->withStatus($exception->getCode() != 0 ? $exception->getCode(): 500)
                              ->withHeader('Content-Type', 'application/json')
                              ->write(json_encode($data));
@@ -75,7 +82,6 @@ $c['phpErrorHandler'] = function ($c) {
 
 $c['notFoundHandler'] = function ($c) {
     return function ($request, $response) use ($c) {
-        global $app;
         $data = [
             'status' => 404,
             'error' => true,

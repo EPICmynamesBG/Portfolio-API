@@ -1,0 +1,22 @@
+<div class="row">
+  <div class="col s12 input-field">
+    <input placeholder="name" id="link-image-name" name="link-image-name" ng-model="ngModel.name" type="text" class="validate" ng-disabled="disabled" />
+    <label for="link-image-name">Image Name</label>
+  </div>
+  <div class="col s12 input-field">
+    <input placeholder="url" id="link-image-url" name="link-image-url" ng-model="ngModel.url" type="url" class="validate" ng-disabled="disabled" />
+    <label for="link-image-url">Image Url (absolute)</label>
+  </div>
+  <div class="col s12 input-field">
+    <input placeholder="label" id="link-image-label" name="link-image-label" ng-model="ngModel.label" type="text" class="validate" ng-disabled="disabled" />
+    <label for="link-image-label">Image Label/Caption</label>
+  </div>
+  <div class="col s12 input-field">
+    <input placeholder="alt" id="link-image-alt" name="link-image-alt" ng-model="ngModel.alt" type="text" class="validate" ng-disabled="disabled" />
+    <label for="link-image-alt">Image Alt Description</label>
+  </div>
+  <div class="col s12">
+    <h6>Live Preview</h6>
+    <img-preview img="ngModel"></img-preview>
+  </div>
+</div>

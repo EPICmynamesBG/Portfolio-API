@@ -13,7 +13,7 @@ require_once './src/model/Projects/Tags.php';
  *   description="A Tag object"
  *  )
  */
-class Project {
+class Project implements JsonSerializable {
   
   /**
    * @SWG\Property()
@@ -110,15 +110,40 @@ class Project {
         $this->linkImage = Image::getById($this->linkImageId);
       }
       $this->linkLocation = $data['linkLocation'];
-      $this->startDate = $data['startDate'];
-      $this->endDate = $data['endDate'];
+      $this->startDate = new DateTime($data['startDate']);
+      $this->endDate = $data['endDate'] != null ? new DateTime($data['endDate']):null;
       $this->status = $data['status'];
       $this->description = $data['description'];
       $this->hidden = boolval($data['hidden']);
-      $this->lastUpdated = $data['lastUpdated'];
+      $this->lastUpdated = new DateTime($data['lastUpdated']);
       $this->tags = Tag::getAllForProject($this->id);
       $this->images = Image::getAllForProject($this->id);
     }
+  }
+
+  public function jsonSerialize() {
+    global $CONFIG;
+
+    $endDate = $this->endDate;
+    if ($this->endDate != null){
+      $endDate = $this->endDate->format($CONFIG['dateFormat']);
+    }
+
+    return [
+      'id' => $this->id,
+      'title' => $this->title,
+      'linkText' => $this->linkText,
+      'linkImage' => $this->linkImage,
+      'linkLocation' => $this->linkLocation,
+      'startDate' => $this->startDate->format($CONFIG['dateFormat']),
+      'endDate' => $endDate,
+      'status' => $this->status,
+      'description' => $this->description,
+      'hidden' => $this->hidden,
+      'lastUpdated' => $this->lastUpdated->format($CONFIG['timestampFormat']),
+      'tags' => $this->tags,
+      'images' => $this->images
+    ];
   }
   
   
@@ -140,16 +165,16 @@ class Project {
     
     $createArr = Util::prepareOptionals($createArr, $data,  ['linkText', 'linkImageId', 'linkLocation', 'endDate',
                                                             'status', 'description']);
-    
+
     $db = DB::getInstance();
-    $results = $db->create('projects', $createArr);
+    $results = $db->insert('projects', $createArr);
     DB::handleError($db);
     
     if (sizeof($results) != 1){
       throw new Exception("An error occurred creating project ". $data['title'], 500);
     }
-    
-    $lastInsertedId = $db->lastInsertId();
+
+    $lastInsertedId = $db->id();
     
     if (isset($data['tags']) && is_array($data['tags'])){
       Tag::createAllForProject($data['tags'], $lastInsertedId);
@@ -226,7 +251,6 @@ class Project {
     
     $updateArr = Util::prepareOptionals([], $data,  ['title', 'linkText', 'linkImageId', 'linkLocation','startDate',
                                                      'endDate', 'status', 'description']);
-    $updateArr['lastUpdated'] = time();
     
     $db = DB::getInstance();
     $updated = $db->update('projects', $updateArr, ['id' => $this->id]);
@@ -266,6 +290,17 @@ class Project {
       throw new Exception("An error occurred deleting project ". $this->title, 500);
     }
     
+    return $this;
+  }
+
+  public function toggleVisibility($visible = false) {
+    $db = DB::getInstance();
+    $results = $db->update('projects', ['hidden' => boolval(!$visible)], ['id' => $this->id]);
+    DB::handleError($db);
+    if (!isset($results)){
+      throw new Exception('Error updating project visibility', 500);
+    }
+    $this->hidden = boolval(!$visible);
     return $this;
   }
   

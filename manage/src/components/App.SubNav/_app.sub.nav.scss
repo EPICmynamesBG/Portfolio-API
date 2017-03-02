@@ -4,6 +4,17 @@ $side-nav-width: 200px;
   width: $side-nav-width;
   position: fixed;
   left: $nav-width;
+  z-index: 998;
+  ul {
+    width: 100%;
+    & > li {
+      float: none;
+      a {
+        width: 100%;
+        color: black;
+      }
+    }
+  }
 }
 
 #app-sub-nav + article {

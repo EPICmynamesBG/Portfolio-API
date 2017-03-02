@@ -6,7 +6,7 @@
     <main>
       <ul>
         <li class="bold" ng-repeat="item in routeItems" ui-sref-active="active-nav">
-          <a ui-sref="{{itemType}}.details({id: item.id})" class="waves-effect">{{item[routeVariable]}}</a>
+          <a ui-sref="{{itemType}}.Details({id: item[routeVariable]})" class="waves-effect">{{item[displayProp]}}</a>
         </li>
       </ul>
     </main>

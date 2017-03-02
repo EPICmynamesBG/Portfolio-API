@@ -69,7 +69,7 @@ class WorkContact {
       throw new Exception("An error occurred creating WorkContact ", 500);
     }
     
-    $lastInsertedId = $db->lastInsertId();
+    $lastInsertedId = $db->id();
     
     return self::getById($lastInsertedId);
   }

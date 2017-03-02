@@ -135,7 +135,7 @@ class WorkExperience {
       throw new Exception("An error occurred creating workExperience ". $data['title'], 500);
     }
     
-    $lastInsertedId = $db->lastInsertId();
+    $lastInsertedId = $db->id();
     
     if (isset($data['contacts'])){
       Contact::createAllForWorkExperience($data['contacts'], $lastInsertedId);
@@ -197,7 +197,6 @@ class WorkExperience {
     
     $updateArr = Util::prepareOptionals([], $data, ['mdiIcon', 'title', 'company', 'location', 
                                                     'startDate', 'endDate', 'description']);
-    $updateArr['lastUpdated'] = time();
     
     $db = DB::getInstance();
     

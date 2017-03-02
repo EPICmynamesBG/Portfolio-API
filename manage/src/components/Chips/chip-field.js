@@ -8,7 +8,7 @@ app.directive('chipField', function (TagsAPI) {
     },
     templateUrl: './src/components/Chips/chip-field.html',
     link: function (scope, element, attrs) {
-      
+
       var thisField = $('.chip-field');
 
       var options = [];
@@ -25,7 +25,7 @@ app.directive('chipField', function (TagsAPI) {
 
       var parseOptionsToAutocomplete = function (toParse) {
         var autocomplete = {};
-        toParse.forEach(function(item){
+        toParse.forEach(function (item) {
           var key = item.name;
           autocomplete[key] = null;
         });
@@ -34,10 +34,10 @@ app.directive('chipField', function (TagsAPI) {
 
 
       var parsePresetsToChips = function (toParse) {
-        if (!toParse || !Array.isArray(toParse) || toParse.length == 0){
+        if (!toParse || !Array.isArray(toParse) || toParse.length == 0) {
           return [];
         }
-        
+
         var chipList = []
         toParse.forEach(function (tag) {
           var chip = {
@@ -55,18 +55,27 @@ app.directive('chipField', function (TagsAPI) {
           autocompleteData: parseOptionsToAutocomplete(options),
           limit: 10,
           data: parsePresetsToChips(scope.preset),
-          placeholder: 'Enter a Tag',
-          secondaryPlaceholder: '+Tag'
+          placeholder: '+Tag',
+          secondaryPlaceholder: 'Enter a Tag'
         });
       }
 
       init();
-      
-      
-      scope.$watch(function() {
+
+
+      scope.$watch(function () {
         return thisField.material_chip('data');
-      }, function(newVal){
+      }, function (newVal) {
         scope.ngModel = newVal;
+      }, true);
+
+      scope.$watch('ngModel', function (newValue, oldValue) {
+        if (newValue != oldValue) {
+          if (!newValue || newValue.length == 0) {
+            thisField.empty();
+            init();
+          }
+        }
       });
 
     }

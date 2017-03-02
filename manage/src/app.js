@@ -1,7 +1,9 @@
 var app = angular.module('admin', ['ui.router', 'angular-loading-bar', 'admin.templates', 'admin.info', 'admin.work', 'admin.projects', 'admin.auth', 'froala']);
 
 app.constant('config', {
-  url: 'http://localhost:8888/api/v1'
+  url: 'http://localhost:8888/api/v1',
+  dateFormat: 'mm/dd/yyyy',
+  dateTimeFormat: 'mm/dd/yyyy hh:mm:ss'
 });
 
 app.value('froalaConfig', {
@@ -23,9 +25,6 @@ app.run(['$rootScope', '$state', '$timeout', function ($rootScope, $state, $time
     }
   });
   
-  $rootScope.$on('stateChangeError', function(evt, to, params){
-    console.error(evt, to, params);
-  });
 }]);
 
 

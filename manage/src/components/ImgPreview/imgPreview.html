@@ -1,0 +1,5 @@
+<figure class="img-preview {{addClasses}}">
+  <span class="img-title">{{img.name}}</span>
+  <img ng-src="{{img.url}}" alt="{{img.alt}}" />
+  <figcaption><span ng-if="index != undefined || img.orderNum != undefined">{{img.orderNum != undefined ? img.orderNum:index}}: </span>{{img.label}}</figcaption>
+</figure>

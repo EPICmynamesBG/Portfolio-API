@@ -1,4 +1,4 @@
-var projModule = angular.module('admin.projects', ['ui.router']);
+var projModule = angular.module('admin.projects', ['ui.router', 'ui.sortable']);
 
 projModule.config(['$stateProvider', function ($stateProvider) {
 
@@ -33,6 +33,16 @@ projModule.config(['$stateProvider', function ($stateProvider) {
       excludeFromSidenav: true,
       data: {
 
+      }
+    })
+    .state('Projects.Details.Edit', {
+      url: '/edit',
+      templateUrl: './src/modules/Projects/Details/Edit/projects.details.edit.html',
+      controller: 'ProjectDetailsEditController',
+      parent: 'Projects.Details',
+      excludeFromSidenav: true,
+      data: {
+        
       }
     })
     .state('Tags', {

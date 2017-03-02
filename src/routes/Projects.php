@@ -178,7 +178,56 @@ $app->group('/projects', function() use ($app){
     $app->put('', function($request, $response, $args){
       $project = Project::getById($args['id']);
       $body = $request->getParsedBody();
-      $experience = $project->update($body);
+      $updated = $project->update($body);
+      $output = ['updated' => true,'data' => $updated];
+      return $response->getBody()->write(json_encode($output));
+    })->add($validateAdmin);
+
+
+    /**
+     * @SWG\Put(
+     *     path="/projects/{id}/visibility",
+     *     summary="Toggle Visibility",
+     *     description="Update a project's visibility by Id",
+     *     tags={"Projects"},
+     *     @SWG\Parameter(ref="#/parameters/AuthHeader"),
+     *     @SWG\Parameter(ref="#/parameters/id"),
+     *     @SWG\Parameter(
+     *       name="ProjectUpdateBody",
+     *       in="body",
+     *       required=true,
+     *       @SWG\Schema(
+     *         type="object",
+     *         required={"visible"},
+     *         @SWG\Property(property="visible", type="boolean", default=false),
+     *       )
+     *     ),
+     *     @SWG\Response(
+     *         response=200,
+     *         description="Success",
+     *         @SWG\Schema(
+     *             type="object",
+     *             required={"updated", "data"},
+     *             @SWG\Property(property="updated", type="boolean", default=true),
+     *             @SWG\Property(property="data", type="object", ref="#/definitions/Project")
+     *         )
+     *     ),
+     *     @SWG\Response(
+     *         response="default",
+     *         description="Error",
+     *         @SWG\Schema(
+     *             ref="#/definitions/Error"
+     *         )
+     *     )
+     * )
+     */
+    $app->put('/visibility', function($request, $response, $args){
+      $project = Project::getById($args['id']);
+      $body = $request->getParsedBody();
+      if (!isset($body['visible'])){
+        throw new Exception('Missing parameter: visible', 400);
+      }
+      $project = $project->toggleVisibility($body['visible']);
       $output = ['updated' => true,'data' => $project];
       return $response->getBody()->write(json_encode($output));
     })->add($validateAdmin);

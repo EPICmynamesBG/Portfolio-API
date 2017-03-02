@@ -77,7 +77,7 @@ class Image {
       throw new Exception("An error occurred creating image ". $name, 500);
     }
     
-    $lastInsertedId = $db->lastInsertId();
+    $lastInsertedId = $db->id();
     
     return self::getById($lastInsertedId);
   }
@@ -169,7 +169,7 @@ class Image {
     if (sizeof($results) == 1){
       return new Image($results[0]);
     } else {
-      return self::create($name);
+      return self::create($data);
     }
     
   }
@@ -179,6 +179,21 @@ class Image {
     $createdImages = [];
     foreach($newImages as $toCreate) {
       $createdImages[] = self::findOrCreate($toCreate);
+      if (gettype($toCreate) == "string"){
+        $createdImages[] = self::findOrCreate($toCreate);
+      } else { //is object
+        if (isset($toCreate['id'])) {
+          try {
+            $createdImages[] = self::getById($toCreate['id']);
+          } catch (Exception $e) {
+            //this is ok
+            $createdImages[] = self::findOrCreate($toCreate);
+          }
+        } else {
+          $createdImages[] = self::findOrCreate($toCreate);
+        }
+      }
+
     }
     
     $createdWorkImages = [];
@@ -201,12 +216,12 @@ class Image {
       $imageIdArr[] = $projImage->getImageId();
     }
     
-    if (sizeof($projIdArr) == 0){
+    if (sizeof($imageIdArr) == 0){
       return [];
     }
     
     $db = DB::getInstance();
-    $results = $db->select('images', '*', ['id' => $projIdArr]);
+    $results = $db->select('images', '*', ['id' => $imageIdArr]);
     DB::handleError($db);
     
     $images = [];

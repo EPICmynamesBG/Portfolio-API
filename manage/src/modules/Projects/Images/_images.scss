@@ -1,0 +1,14 @@
+.img-grid {
+  display: flex;
+  justify-content: space-around;
+  align-content: flex-start;
+  align-items: center;
+  
+  .flex-item {
+    flex-basis: 33%;
+    flex-grow: 1;
+    flex-shrink: 1;
+    max-height: 200px;
+    max-width: 200px;
+  }
+}

@@ -20,4 +20,26 @@ form {
     line-height: 1.5rem;
     top: -1rem;
   }
+  figure.img-preview {
+    position: relative;
+    span.img-title {
+      position: absolute;
+      left: 10px;
+      top: 10px;
+      font-weight: 100;
+      font-size: 1rem;
+      color: white;
+      z-index: 10;
+    }
+    img {
+      max-width: 100%;
+      max-height: 100%;
+      margin: 0 auto;
+    }
+    figcaption {
+      font-weight: 100;
+      text-align: center;
+      font-size: 0.8rem;
+    }
+  }
 }

@@ -1,9 +1,9 @@
-<form name="projectCreateForm">
+<form name="projectDetailsForm">
   <div class="row">
-    <div class="col s12">
-      <h4>Create a Project</h4>
-      <div class="divider"></div>
+    <div class="col s8">
+      <h4>Edit {{original.title}}</h4>
     </div>
+    <div class="divider"></div>
   </div>
   <div class="row">
     <div class="input-field col s12 m6">
@@ -129,13 +129,13 @@
   </div>
   <br />
   <div class="row">
-    <div class="col s6">
-      <button class="btn btn-large waves-effect waves-light red left" type="reset" name="action" ng-click="resetProject()">Reset
+    <div class="col s4">
+      <button class="btn btn-large waves-effect waves-light red left" type="button" name="delete" ng-click="delete()">Delete
         <i class="material-icons right">clear</i>
       </button>
     </div>
-    <div class="col s6">
-      <button class="btn btn-large waves-effect waves-light light-blue right" type="submit" name="action" ng-click="createProject()" ng-disabled="projectCreateForm.$invalid">Submit
+    <div class="col s4">
+      <button class="btn btn-large waves-effect waves-light orange right" type="submit" name="action" ng-click="updateProject()" ng-disabled="projectDetailsForm.$invalid">Update
         <i class="material-icons right">send</i>
       </button>
     </div>
