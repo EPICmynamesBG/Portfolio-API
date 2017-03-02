@@ -35,11 +35,11 @@ projModule.config(['$stateProvider', function ($stateProvider) {
 
       }
     })
-    .state('Projects.Details.Edit', {
-      url: '/edit',
+    .state('Projects.Edit', {
+      url: '/:id/edit',
       templateUrl: './src/modules/Projects/Details/Edit/projects.details.edit.html',
       controller: 'ProjectDetailsEditController',
-      parent: 'Projects.Details',
+      parent: 'Projects',
       excludeFromSidenav: true,
       data: {
         

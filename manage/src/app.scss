@@ -66,6 +66,45 @@ img {
   max-height: 100%;
 }
 
+form {
+  position: relative;
+}
+
+.fixed {
+  position: fixed;
+  &.top {
+    top: 2rem;
+  }
+  &.bottom {
+    bottom: 2rem;
+  }
+  &.left {
+    left: 2rem;
+    float:none;
+  }
+  &.right {
+    right: 2rem;
+    float: none;
+  }
+}
+
+.absolute {
+  position: absolute;
+  &.top {
+    top: 2rem;
+  }
+  &.bottom {
+    bottom: 2rem;
+  }
+  &.left {
+    left: 2rem;
+    float:none;
+  }
+  &.right {
+    right: 2rem;
+    float: none;
+  }
+}
 //.chip i.mdi {
 //  float: left;
 //  margin: 0 8px 0 -12px;

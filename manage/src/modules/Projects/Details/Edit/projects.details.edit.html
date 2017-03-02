@@ -1,7 +1,18 @@
 <form name="projectDetailsForm">
   <div class="row">
-    <div class="col s8">
+    <div class="col s7">
       <h4>Edit {{original.title}}</h4>
+      <h6>Last Updated: <i>{{project.lastUpdated.toDate() | date:'short'}}</i></h6>
+    </div>
+    <div class="col s5">
+      Live Site Visibility
+      <div class="switch">
+        <label>
+          Hidden
+          <input type="checkbox" ng-value="true" ng-model="project.hidden" ng-disabled="updating" />
+          <span class="lever"></span> Visible
+        </label>
+      </div>
     </div>
     <div class="divider"></div>
   </div>
@@ -131,6 +142,11 @@
   <div class="row">
     <div class="col s4">
       <button class="btn btn-large waves-effect waves-light red left" type="button" name="delete" ng-click="delete()">Delete
+        <i class="material-icons right">clear</i>
+      </button>
+    </div>
+    <div class="col s4">
+      <button class="btn btn-large waves-effect waves-light amber" type="reset" name="reset" ng-click="resetChanges()">Reset Changes
         <i class="material-icons right">clear</i>
       </button>
     </div>
